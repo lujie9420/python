@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        main
+    </title>
+    <style>
+    .title{
+        color : red;
+    }
+    .main{
+        font-weight:10;
+        font-size:20px;
+    }
+    .bk{
+        background-color :blue;
+    }
+
+
+    </style>
+
+</head>
+<body>
+
+
+
+
+<div id="ap">
+
+    <p v-bind:class="[d1,d2]" >加油</p>
+    <p :class="{title:db1,main:db2}">hello honey</p>
+
+    user:{{username}}
+    <p>password:{{password}}</p>
+
+    <button v-on:click="demo">modify</button>
+    <p v-html="code">{{code}}</p>
+    <p :class="[m1,m2]">我的背景</p>
+    <p :class="class1">我是class</p>
+    <p :style="{backgroundColor:title1?'red':'yellow'}">{{tp.split(" ").reverse().join()}}</p>
+
+    <template v-if="age>13">
+        <p>study</p>
+    </template>
+    <template v-else-if="age<13">
+        <P>wedding</P>
+    </template>
+    <template v-else="age==13">
+        <P>playing</P>
+    </template>
+
+    <template v-if="login=='admin'">
+        <label for="">用户名:</label>
+        <input type="text" placeholder="用户名" key="1">
+    </template>
+    <template v-else-if="login=='email'" >
+        <label for="">邮箱:</label>
+        <input type="text" placeholder="email" key="3">
+    </template>
+    <button v-on:click="change">切换登录</button>
+
+    <div v-for="book in books" :key="book">
+        <label>{{book}}</label>
+        <input type="text" :placeholder="book">
+    </div>
+
+    <button @click="exchange">切换图书</button>
+     <div v-for="book in books">
+        {{book}}
+    </div>
+    <button @click="update">更新按钮</button>
+
+    <input type="text" value="bookname">
+    <button @click="add">添加</button>
+    <p v-for="(key,value) in persons">
+        {{value}}:{{key}}
+    </p>
+    {{count}}
+    <button @click="count+=1">加</button>
+    <button @click="count-=2">减</button>
+    <label>长:</label>
+    <input type="number" v-model:value="length" placeholder="length">
+    <label>宽:</label>
+    <input type="number" v-model:value="withd" placeholder="withd">
+    <label>面积:</label>
+    <input type="number" readonly v-bind:value="mul" placeholder="area" >
+    <p></p>
+
+    <template>省:</template> <input type="text" v-model:value="priv" placeholder="省">
+    <template>市:</template> <input type="text" v-model:value="sriv" placeholder="市">
+    <template>区:</template> <input type="text" v-model:value="qriv" placeholder="区">
+    <p></p>
+    <label class="title">总称:</label> <input type="text" v-model:value="address" placeholder="address">
+
+
+
+
+
+<!--    <img v-bind:src="image" alt="">-->
+
+
+
+</div>
+
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script>
+    new Vue({
+        el: "#ap",
+        data:{
+            "username":"逻辑",
+            "password": 123,
+            age:23,
+            "code":"<a href='https://www.baidu.com/'>百度一下</a>",
+            "image":"https://www.baidu.com/img/bd_logo1.png",
+            "d1":"title",
+            'd2':'main',
+            db1: true,
+            db2: false,
+            class1:'main title',
+            m1:'bk',
+            m2:'main',
+            tp:'python hello',
+            title1:false,
+            login:'admin',
+            books:['python','php','c++'],
+            bookname:"西游",
+            persons:{
+                "username":"卢杰",
+            },
+            count:0,
+            length:0,
+            withd:0,
+            priv:"",
+            sriv:"",
+            qriv:"",
+
+        },
+        methods: {
+            demo: function(){
+                this.username = "lujie"
+            },
+            change: function(){
+                this.login = this.login=='email'?'admin':'email'
+            },
+            exchange: function(){
+                this.books.sort(function (a,b){
+                    a = Math.random()
+                    b = Math.random()
+                    return a-b
+                })
+            },
+            update: function(){
+                this.books.pop()
+            },
+            add: function(){
+<!--                this.books.push(bookname)-->
+                this.books.splice(3,0,'金平')
+            },
+
+        },
+<!--        ###计算属性-->
+        computed: {
+            mul: function(){
+<!--            页面调试-->
+                console.log(this.withd,this.length)
+<!--                result = this.withd * this.length-->
+<!--                return result-->
+                return  this.withd * this.length
+            },
+            address:{
+<!--            #get方法-->
+                get: function(res){
+                    var res = ""
+                    if(this.priv){
+                        res = this.priv + '省'
+                    }
+                    if(this.sriv){
+                        res += this.sriv + '市'
+                    }
+                    if(this.qriv){
+                        res += this.qriv + '区'
+                    }
+                    return res
+                },
+<!--                #set方法-->
+                set: function(value){
+
+                    var res = value.split(/省|市|区/)
+                    console.log(res)
+
+                    if(res && res.length > 0){
+                        this.priv = res[0]
+                    }
+                    if(res && res.length > 1){
+                        this.sriv = res[1]
+                    }
+                    if(res && res.length > 2){
+                        this.qriv = res[2]
+                    }
+                }
+
+            }
+
+        }
+
+    })
+
+
+
+
+</script>
