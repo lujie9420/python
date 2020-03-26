@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+<!--点击按钮懒加载，意思是当光标移开输入框时，才会显示输入的值 修饰符：lazy number trim-->
+    <input type="text" v-model.lazy.number="clas">
+    <input type="text" readonly="clas" v-model="clas">
+
+<!--点击按钮每次减2 sub()括号内可以传入参数 $符号加event 可以在页面控制台显示原生的DOM属性 即value的值-->
+    <div>
+        {{count}}
+        <button @click="sub(2,$event)" value="lujie">按钮键</button>
+    </div>
+
+<!--单选按钮绑定属性-->
+    <div>
+        <input type="radio" value="男" v-model="gender">
+    <label>男</label>
+
+    <input type="radio" value="女" v-model="gender">
+    <label>女</label>
+
+    选择：<input type="text" readonly="gender" v-model="gender">
+    </div>
+
+
+<!--单个复选框 绑定bool值-->
+    <div>
+    <input type="checkbox" id="checkbox" v-model="checked">
+    <label for="checkbox">{{checked}}</label>
+    </div>
+
+<!--多个复选框，绑定到同一个数组-->
+    <div>
+        <input type="checkbox" value="python" v-model="values" >
+        <label>python</label>
+        <input type="checkbox" value="java" v-model="values" >
+        <label>java</label>
+        <input type="checkbox" value="php" v-model="values" >
+        <label>php</label>
+        <br>
+        <span>添加的值：{{values}}</span>
+    </div>
+
+<!--单选框，仅选择一个值-->
+    <select v-model="selected">
+        <option disabled value="" >请选择</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+    </select>
+    <span>Selected:{{selected}}</span>
+
+
+    <p v-html="address">{{address}}</p>
+    <img v-bind:src="image">
+
+</div>
+
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script>
+   Vue.component('bclick',{
+        template: '<button @click="add+=1">加{{add}}</button>',
+        data: function(){
+            return{
+                add:0
+            }
+        }
+   })
+   new Vue({
+        el:"#app",
+        data:{
+            clas:"",
+            count:0,
+            res:"",
+            keyword:"",
+            gender:"",
+            number: 0,
+            checked:true,
+            values:[],
+            selected:'',
+            address:"<a href='https://www.baidu.com/'>百度一下</a>",
+            "image":"https://www.baidu.com/img/bd_logo1.png",
+        },
+        methods:{
+            sub: function(value,event){
+                alert(123)
+                console.log(event.target.value)
+                this.count -= value
+            }
+            },
+        computed:{
+             watch: {
+                keyword: function(newvalue,oldvalue){
+                    console.log(newvalue);
+                    console.log(oldvalue);
+                }
+        }
+        }
+   })
+
+
+
+</script>
