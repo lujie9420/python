@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this is static html</title>
+</head>
+<body>
+<div id="app">
+    <p>{{datas}}</p>
+<!--    <blog-post post="My journey with Vue"></blog-post>-->
+<!--    <blog-post lik="42"></blog-post>-->
+<!--    <blog-post :lik="datas"></blog-post>-->
+<!--    <blog-post v-bind:is-published="false"></blog-post>-->
+
+    <stepper v-model:count="counters"></stepper>
+
+
+
+</div>
+
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    Vue.component('stepper', {
+        props: ['count'],
+        model:{
+<!--        event通知父组件执行事件-->
+            event:'nodify',
+<!--            将父组件中的counter绑定到子组件的方法中-->
+            prop:'count',
+        },
+        template: `
+            <div>
+                <button @click="sub(2)">-</button>
+                <span>{{count}}</span>
+                <button @click="add">+</button>
+            </div>t
+        `,
+        methods:{
+            sub: function(value,event){
+<!--            this.$emit为模版中的count实际是父组件中传过来，我们不能直接用this.count-->
+                this.$emit('nodify',this.count -value)
+            },
+            add: function(){
+                this.$emit('nodify',this.count +1)
+            }
+        }
+    })
+    new Vue({
+        el:"#app",
+        data:{
+        datas:'success',
+        counters:0,
+
+        }
+
+
+    })
+</script>
