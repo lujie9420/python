@@ -76,13 +76,19 @@
                 <label>价格</label>
             <input type="text" class="form-control" v-model:value="pushbooks.prices" placeholder="price" >
             </div>
-
-            <label>发行时间</label>
+            <div class="form-group">
+                <label>发行时间</label>
             <input type="text" class="form-control" v-model:value="pushbooks.publishtimes" placeholder="pulishtime" >
+            </div>
+            <div class="form-group">
+                <label>搜索</label>
+            <input type="text" class="form-control" v-model:value="checkchange" placeholder="pulishtime" >
+            </div>
 
             <p align="right"><button type="button" class="btn btn-danger" @click="addclicks">添加图书</button></p>
 
-            <p align="right"><button type="button" class="btn btn-danger" @click="deleteclicks">删除图书</button></p>
+
+<!--            <p align="right"><button type="button" class="btn btn-danger" @click="deleteclicks">删除图书</button></p>-->
         </form>
 
     </div>
@@ -96,12 +102,14 @@
              <th>发布时间</th>
          </tr>
 
-         <tr v-for="(res,index) in results">
+         <tr v-for="(res,index) in results_books">
             <td>{{index+1}}</td>
             <td>{{res.books}}</td>
             <td>{{res.authors}}</td>
             <td>{{res.prices}}</td>
             <td>{{res.publishtimes}}</td>
+            <td><button type="button" class="btn btn-danger" @click="deleteclicks(index)">删除图书</button></td>
+
         </tr>
         <h v-for="i in pushbooks">{{i}}</h>
 <!--        <h >{{pushbooks.book}}</h>-->
@@ -157,6 +165,7 @@
                 prices:"",
                 publishtimes:"",
             },
+            checkchange:"",
 
         },
         methods:{
@@ -170,10 +179,17 @@
 <!--                注释：JOSN.stringify()转换为字符串，JSON.parse转为vue认识的代码-->
                     pushbook = JSON.parse(JSON.stringify(this.pushbooks))
                 this.results.push(pushbook)
+<!--                注释：当值输入添加后，将输入框清空，即重新赋值为空对象；-->
+                this.pushbooks = {
+                    books:"",
+                    authors:"",
+                    prices:"",
+                    publishtimes:"",
+                }
             },
-            deleteclicks: function(){
+            deleteclicks: function(index){
                 if(this.results){
-                    this.results.splice(0,1)
+                    this.results.splice(index,1)
                 }
             }
             },
@@ -183,7 +199,15 @@
                     console.log(newvalue);
                     console.log(oldvalue);
                 }
-        }
+             },
+             results_books(){
+                if(this.checkchange){
+                    var newbooks = this.
+                    if this.checkchange
+                }else{
+                    return this.results
+                }
+             }
         }
    })
 
