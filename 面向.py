@@ -11,24 +11,20 @@ def __init__(self):
 特殊意义：创建对象的同时，通过对象执行这样的一个方法叫做构造方法
 
 '''
-# class fb(object):
-#     #属性
-#     def __init__(self): #初始化
-#         self.age =self
-#         self .gender = self
-#         self.adder=self
-#
-#     #行为
-#     def fc(self):
-#         print(self .age,self .gender,self.adder)
-# lujie = fb()
-# lujie.age=18
-# lujie.gender = 'male'
-# lujie.adder ='无锡'
-# lujie.fc()
-# huang = fb()
-# huang.adder ='苏州'
-# huang.fc()
+class fb(object):
+    #属性
+    def __init__(self,age,gender,adder): #初始化,需要传参
+        self.age =age
+        self .gender = gender
+        self.adder=adder
+        self.name=self
+
+    #行为
+    def fc(self):
+        return self .age,self .gender,self.adder,self.name
+lujie = fb(18,'男','无锡')
+lujie.name = 'python'
+print(lujie.fc())
 
 '''
 def __str__(self)
@@ -249,7 +245,7 @@ from math import pi
 
 import abc
 
-class shape(metaclass= abc.ABCMeta):
+class shape(metaclass= abc.ABCMeta): #抽象基类 子类必须重写父类的方法
     @abc.abstractmethod
     def area(self):
         pass
@@ -285,13 +281,14 @@ Be = B(3, 4)
 Ce = C(2,3,4)
 
 
-def both_two(class_name):
+def both_two(classmate):
     lis = ['area']
     for i in lis:
-        f = getattr(class_name, i,None)
+        f = getattr(classmate, i,False)
         if f:
             return f()
 
+print(both_two(Ae))
 
 # lt = [Ae, Be,Ce]
 # result = list(map(both_two, lt))
@@ -320,13 +317,14 @@ def recv_data(s):
 
 
 def main():
-    #创建一个udp套接字
+    # 创建一个udp套接字
     s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
     #绑定端口
     s.bind(('',778))
     while True:
-        send_data(s)
-        recv_data(s)
+        # send_data(s)
+        # recv_data(s)
+        pass
    #
 
 
@@ -338,6 +336,8 @@ def main():
 '''
 闭包以及装饰器
 '''
+
+import time
 def fb(num):
     print('i am fb')
     def fb1(num1):
@@ -345,12 +345,37 @@ def fb(num):
         nums = num()
         return nums + num1
     return fb1
-@fb
+@fb  #res = fb(fb2)
 def fb2():
-    # print(3)
+    # st = time.time()
+    # time.sleep(2)
+    # end = time.time()
+    # print(f'spend:{end-st}')
     return 4
 
-print(fb2(3))
+
+# print(fb2(3))
+# print(fb2(2))
+
+
+# 函数执行时间装饰
+def caculate(func):
+    def caculate_in():
+        st = time.time()
+        func()
+        end = time.time()
+        print(f'spend:{end-st}')
+    return caculate_in
+
+@caculate #res=caculate(cycle)
+
+def cycle():
+    time.sleep(3)
+    print('4')
 
 
 
+cycle()
+from collections import iter
+
+isinstance('abd',collections.iter)

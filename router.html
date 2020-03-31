@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <div class="container-pool">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active">
+                        <router-link to="/find">find someting </router-link>
+                    </li>
+                    <li role="presentation"><router-link to="/my">mymusic</router-link></li>
+                    <li role="presentation"><router-link to="/mine">mine</router-link></li>
+                </ul>
+    <!-- 路由出口 -->
+    <!-- 路由匹配到的组件将渲染在这里 -->
+    <router-view></router-view>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+
+<script>
+    var find = Vue.extend({template: "<h1>发现音乐</h1>"});
+    var my = Vue.extend({template: "<h1>我的音乐</h1>"});
+    var friend = Vue.extend({template:"<h1>朋友</h1>"});
+    var routes = [
+        {path: "/find",component: find},
+        {path: "/my",component: my},
+        {path: "/friend",component: friend},
+        {path: "/",component:find}
+    ]
+
+    const router = new VueRouter({routes});
+    new Vue({router}).("#app");
+
+</script>
+<!--解释：-->
+<!--1. 在 vue-router 中，使用 <router-link> 来加载链接，然后使用 to 表示跳转的链接。-->
+<!--vue-router 最终会把 <router-link> 渲染成 <a> 标签。-->
+<!--2.  <router-view> 是路由的出口，也就是相应 url 下的代码会被渲染到这个地方来。-->
+<!--3.  Vue.extend 是用来加载模板的。-->
+<!--4.  routes 是定义一个 url 与组件的映射，这个就是路由。-->
+<!--5.  VueRouter 创建一个路由对象-->

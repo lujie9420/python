@@ -10,7 +10,7 @@ import socket
 
 #
 
-url = "https://github.com/Northxw/Python3_WebSpider/tree/master/05-Moments"
+url = "https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1585066684&di=9c707ce9942ecbe13183a8517faf7ac5&src=http://n.sinaimg.cn/sinacn18/565/w620h745/20181027/b2f6-hnaivxp4411996.jpg"
 
 # header = {
 # # 'cookie':'script-src chrome://resources chrome://test 'self';object-src 'none';child-src 'none';'
@@ -18,8 +18,12 @@ url = "https://github.com/Northxw/Python3_WebSpider/tree/master/05-Moments"
 # }
 
 res = requests.get(url)
-print(res)
-
+# res.encoding = 'utf-8'
+print(res.request.headers)
+# print(res.encoding)
+weizhi = 'E:\python\新建文件夹.png'
+with open(weizhi,'wb') as f:
+    f.write(res.content)
 # try:
 #     r = requests.get(url)
 #     r.raise_for_status()    #获取爬取失败异常
