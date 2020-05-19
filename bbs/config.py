@@ -1,0 +1,11 @@
+from flask import Flask
+HOSTNAME = '127.0.0.1'
+DATABASE = 'bbs'
+PORT = 3306
+USERNAME = 'root'
+PASSWORD = 'root'
+
+DB_URL = f'mysql+mysqlconnector://{USERNAME}:{PASSWORD}@{HOSTNAME}:{PORT}/{DATABASE}?charseet=utf8'
+
+SQLALCHEMY_DATABASE_URI = DB_URL
+SQLALCHEMY_TRACK_MODIFICATIONS = False
